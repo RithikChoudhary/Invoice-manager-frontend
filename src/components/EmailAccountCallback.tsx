@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Mail, CheckCircle, XCircle, Loader2 } from 'lucide-react';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+
 const EmailAccountCallback: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -51,7 +53,7 @@ const EmailAccountCallback: React.FC = () => {
         console.log('Exchanging code for email account tokens...');
         
         // Exchange code for email account tokens using query parameters
-        const response = await fetch(`http://localhost:8000/api/email-accounts/oauth/gmail/callback?code=${encodeURIComponent(code)}`, {
+        const response = await fetch(`${API_BASE_URL}/api/email-accounts/oauth/gmail/callback?code=${encodeURIComponent(code)}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

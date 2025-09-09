@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { FileText, CheckCircle } from 'lucide-react';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+
 const GoogleCallback: React.FC = () => {
   const navigate = useNavigate();
   const { setUserData } = useAuth();
@@ -49,7 +51,7 @@ const GoogleCallback: React.FC = () => {
           }
 
           // Exchange code for email account tokens
-          const response = await fetch('http://localhost:8000/api/email-accounts/oauth/gmail/callback', {
+          const response = await fetch(`${API_BASE_URL}/api/email-accounts/oauth/gmail/callback`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -84,7 +86,7 @@ const GoogleCallback: React.FC = () => {
           console.log('Processing public email account OAuth...');
           
           // Exchange code for email account tokens using public endpoint
-          const response = await fetch(`http://localhost:8000/api/email-accounts/oauth/gmail/callback-public?code=${encodeURIComponent(code)}`, {
+          const response = await fetch(`${API_BASE_URL}/api/email-accounts/oauth/gmail/callback-public?code=${encodeURIComponent(code)}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -123,7 +125,7 @@ const GoogleCallback: React.FC = () => {
         } else {
           // Handle main authentication OAuth
           // Exchange code for JWT token using the correct endpoint
-          const response = await fetch('http://localhost:8000/auth/google/exchange', {
+          const response = await fetch(`${API_BASE_URL}/auth/google/exchange`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

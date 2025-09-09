@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 
 // API endpoints
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+
 const authAPI = {
-  googleLogin: () => 'http://localhost:8000/auth/google/login',
-  googleCallback: (code: string) => `http://localhost:8000/auth/google/callback?code=${code}`,
-  me: () => 'http://localhost:8000/auth/me'
+  googleLogin: () => `${API_BASE_URL}/auth/google/login`,
+  googleCallback: (code: string) => `${API_BASE_URL}/auth/google/callback?code=${code}`,
+  me: () => `${API_BASE_URL}/auth/me`
 };
 
 interface User {

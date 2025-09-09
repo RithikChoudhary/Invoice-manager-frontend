@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { CheckCircle, AlertCircle, Loader2, Mail, ArrowRight } from 'lucide-react';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+
 const EmailAccountCallbackPublic: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -30,7 +32,7 @@ const EmailAccountCallbackPublic: React.FC = () => {
         console.log('Processing OAuth callback for invited user...');
         
         // Call the public OAuth callback endpoint
-        const response = await fetch('/api/email-accounts/oauth/gmail/callback-public', {
+        const response = await fetch(`${API_BASE_URL}/api/email-accounts/oauth/gmail/callback-public`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, Link, useLocation, useNavigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
 import Dashboard from './components/Dashboard';
 import EmailAccounts from './components/EmailAccounts';
 import Invoices from './components/Invoices';
@@ -141,7 +143,7 @@ const Settings: React.FC = () => {
         const token = localStorage.getItem('access_token');
         if (!token) return;
 
-        const response = await fetch('http://localhost:8000/api/email-accounts', {
+        const response = await fetch(`${API_BASE_URL}/api/email-accounts`, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
